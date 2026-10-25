@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>History - Online Exam App</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+
+  <div class="navbar">
+    <h2>Online Exam Application</h2>
+    <div>
+      <a href="index.html">Setup</a>
+      <a href="dashboard.html">Dashboard</a>
+      <a href="history.html">My History</a>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="card">
+      <h2>My Exam History</h2>
+      <p id="summaryText"></p>
+      <p id="emptyMessage"></p>
+
+      <table id="historyTable">
+        <thead>
+          <tr>
+            <th>Exam</th>
+            <th>Score</th>
+            <th>Percentage</th>
+            <th>Result</th>
+            <th>Submitted On</th>
+          </tr>
+        </thead>
+        <tbody id="historyBody"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <script src="../js/common.js"></script>
+  <script src="../js/history.js"></script>
+</body>
+</html>
