@@ -1,0 +1,15 @@
+{
+  "name": "online-exam-app",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Online Exam Desktop Application built with Electron",
+  "main": "app/app.js",
+  "scripts": {
+    "start": "electron ./app/app.js"
+  },
+  "author": "Your Name",
+  "license": "ISC",
+  "devDependencies": {
+    "electron": "^31.0.0"
+  }
+}

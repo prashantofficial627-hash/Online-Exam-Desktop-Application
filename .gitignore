@@ -1,0 +1,5 @@
+node_modules/
+snapshots/
+app/user-camera-snap/
+dist/
+.DS_Store
