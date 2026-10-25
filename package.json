@@ -5,7 +5,8 @@
   "description": "Online Exam Desktop Application built with Electron",
   "main": "app/app.js",
   "scripts": {
-    "start": "electron ./app/app.js"
+    "start": "electron ./app/app.js",
+    "dist": "bash scripts/build-dmg.sh"
   },
   "author": "Your Name",
   "license": "ISC",
