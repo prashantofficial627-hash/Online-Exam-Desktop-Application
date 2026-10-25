@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Setup - Online Exam App</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body class="setup-bg">
+
+  <div class="setup-container">
+    <div class="setup-card">
+
+      <div class="setup-section text-center">
+        <h3>Configure Camera</h3>
+        <p class="setup-sub">Kindly configure Camera to attempt quiz/contests.</p>
+        <div class="camera-row">
+          <button id="cameraAccessBtn" class="btn-black">Get Camera Access</button>
+          <video id="cameraPreview" autoplay playsinline muted></video>
+        </div>
+      </div>
+
+      <hr class="setup-divider">
+
+      <div class="setup-section">
+        <h3>Switch to full screen</h3>
+        <button id="fullScreenBtn" class="btn-blue">Give Full Screen Permissions</button>
+      </div>
+
+      <hr class="setup-divider">
+
+      <div class="setup-section text-center">
+        <h3>Snap Storage Location</h3>
+        <p class="setup-sub">Select the folder where all captured camera snaps will be stored.</p>
+        <div class="storage-row">
+          <button id="changeFolderBtn" class="btn-black">Change Storage Folder</button>
+          <div id="folderDisplay" class="folder-pill">/snapshots/ 📁</div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="setup-actions">
+      <button id="goToTestBtn" class="btn-goto">Go To Test</button>
+      <div class="badge-row">
+        <button id="btnVideoSnapshots" class="badge-tag">saveVideoScreenShots</button>
+        <button id="btnNativeRules" class="badge-tag">Show Native Rules</button>
+        <button id="btnChromiumRules" class="badge-tag">Show Chromium Rules</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="../js/common.js"></script>
+  <script src="../js/frontpage.js"></script>
+</body>
+</html>
