@@ -1,32 +1,43 @@
 import { app, BrowserWindow, ipcMain, dialog, session } from "electron";
 import path from "path";
 import fs from "fs";
+import { Buffer } from "node:buffer";
 
-let win = null;
+let electronWindow = null;
 let startTimestamp = null;
 let snapDirectory = path.join(import.meta.dirname, "user-camera-snap");
 
 function createWindow() {
-  win = new BrowserWindow({
+  electronWindow = new BrowserWindow({
+    height: 1000,
     width: 1000,
-    height: 750,
     webPreferences: {
+      devTools: true,
       preload: path.join(import.meta.dirname, "preload.js")
     }
   });
 
-  win.loadFile(path.join(import.meta.dirname, "../pages/index.html"));
+  electronWindow.loadFile(path.join(import.meta.dirname, "../pages/index.html"));
 }
 
 ipcMain.handle("start-timer", () => {
   startTimestamp = Date.now();
-  setInterval(() => win.webContents.send("timer", (Date.now() - startTimestamp) / 1000), 1000);
-  setInterval(() => win.webContents.send("camera-shot"), 5000);
+  setInterval(() => {
+    if (electronWindow && !electronWindow.isDestroyed()) {
+      electronWindow.webContents.send("timer", (Date.now() - startTimestamp) / 1000);
+    }
+  }, 1000);
+  setInterval(() => {
+    if (electronWindow && !electronWindow.isDestroyed()) {
+      electronWindow.webContents.send("camera-shot");
+    }
+  }, 5000);
 });
 
 ipcMain.handle("select-folder", async () => {
-  const result = await dialog.showOpenDialog(win, {
-    properties: ["openDirectory"]
+  const result = await dialog.showOpenDialog(electronWindow, {
+    title: "Select Folder for Camera Snaps",
+    properties: ["openDirectory", "createDirectory"]
   });
 
   if (!result.canceled && result.filePaths[0]) {
@@ -37,26 +48,37 @@ ipcMain.handle("select-folder", async () => {
 
 ipcMain.handle("get-storage-folder", () => snapDirectory);
 
-ipcMain.handle("store-camera-snap-image-on-disk", (event, data) => {
-  if (!fs.existsSync(snapDirectory)) {
-    fs.mkdirSync(snapDirectory, { recursive: true });
-  }
+ipcMain.handle("store-camera-snap-image-on-disk", (_event, data) => {
+  fs.mkdirSync(snapDirectory, { recursive: true });
   fs.writeFileSync(path.join(snapDirectory, `${Date.now()}.jpg`), Buffer.from(data));
 });
 
 ipcMain.handle("show-rules", async () => {
-  return await dialog.showMessageBox(win, {
+  const buttons = ["Accept & Proceed", "Decline", "Cancel"];
+  const { response, checkboxChecked } = await dialog.showMessageBox(electronWindow, {
     type: "info",
-    title: "Exam Rules",
-    message: "Exam Rules & Instructions",
-    detail: "1. Stay on the exam screen.\n2. Camera must remain enabled.\n3. Do not switch tabs or windows.\n4. Submit before the timer ends.",
-    buttons: ["Accept & Proceed", "Cancel"],
-    checkboxLabel: "I have read and agree to the rules"
+    title: "Athena Exam Rules",
+    message: "Exam Rules",
+    detail:
+      "1. Stay on the exam screen.\n" +
+      "2. Camera must remain enabled.\n" +
+      "3. Do not leave the exam.\n" +
+      "4. Do not use external assistance.\n" +
+      "5. Click Exit Exam when finished.",
+    buttons,
+    defaultId: 0,
+    cancelId: 2,
+    checkboxLabel: "I have read and agree to the exam rules"
   });
+
+  const clickedButton = buttons[response] ?? `Button ${response}`;
+  return { clickedButton, checkboxChecked };
 });
 
 ipcMain.on("set-fullscreen", (event, flag) => {
-  win.setFullScreen(flag);
+  if (electronWindow && !electronWindow.isDestroyed()) {
+    electronWindow.setFullScreen(flag);
+  }
 });
 
 app.whenReady().then(() => {
