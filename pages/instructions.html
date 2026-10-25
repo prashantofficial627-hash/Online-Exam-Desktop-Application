@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Instructions - Online Exam App</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+
+  <div class="navbar">
+    <h2>Online Exam Application</h2>
+    <div>
+      <a href="dashboard.html">Back to Dashboard</a>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="card">
+      <h2 id="examTitle">Exam</h2>
+      <p id="examInfo"></p>
+
+      <h3>Instructions</h3>
+      <ul>
+        <li>The exam has a countdown timer. It is submitted automatically when time ends.</li>
+        <li>Each question has only one correct answer.</li>
+        <li>You can move between questions using the Next and Previous buttons.</li>
+        <li>Your answers are saved as you select them.</li>
+        <li>Do not close the application during the exam.</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h3>Proctoring Notice</h3>
+      <p>During this exam the application will:</p>
+      <ul>
+        <li>Ask for permission to use your <b>webcam</b>.</li>
+        <li>Switch to <b>full-screen mode</b>.</li>
+        <li>Take a <b>snapshot</b> with your webcam every 30 seconds and save it on this computer.</li>
+      </ul>
+      <p>These features help to monitor the exam but cannot detect every kind of misconduct.</p>
+
+      <label>
+        <input type="checkbox" id="agreeBox">
+        I have read the instructions and I agree to the use of webcam and snapshots.
+      </label>
+      <br><br>
+      <button id="startBtn" class="btn-green" disabled>Start Exam</button>
+    </div>
+  </div>
+
+  <script src="../data/exams.js"></script>
+  <script src="../js/common.js"></script>
+  <script src="../js/instructions.js"></script>
+</body>
+</html>

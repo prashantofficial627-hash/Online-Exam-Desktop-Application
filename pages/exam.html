@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Exam - Online Exam App</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+
+  <div class="container">
+
+    <div class="card exam-top">
+      <h3 id="examTitle">Exam</h3>
+      <div class="timer" id="timer">00:00</div>
+    </div>
+
+    <p id="statusMessage" class="message"></p>
+
+    <div class="card">
+      <p id="questionNumber"></p>
+      <h3 id="questionText"></h3>
+      <div id="optionsBox"></div>
+
+      <div class="nav-buttons">
+        <button id="prevBtn">Previous</button>
+        <button id="nextBtn">Next</button>
+      </div>
+    </div>
+
+    <button id="submitBtn" class="btn-red">Submit Exam</button>
+  </div>
+
+  <video id="webcam" autoplay muted></video>
+  <canvas id="snapshotCanvas" style="display: none;"></canvas>
+
+  <script src="../data/exams.js"></script>
+  <script src="../js/common.js"></script>
+  <script src="../js/exam.js"></script>
+</body>
+</html>
